@@ -23,6 +23,9 @@ function Footer() {
           }}
         />
       </section>
+      <section>
+        Fork by <A href="https://twitter.com/endrus">Andrei Khrapavitski</A>
+      </section>
     </Wrapper>
   );
 }

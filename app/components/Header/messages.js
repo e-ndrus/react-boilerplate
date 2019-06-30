@@ -14,6 +14,10 @@ export default defineMessages({
   },
   features: {
     id: `${scope}.features`,
-    defaultMessage: 'Features',
+    defaultMessage: 'Protected Page',
+  },
+  post: {
+    id: `${scope}.post`,
+    defaultMessage: 'Public Page',
   },
 });

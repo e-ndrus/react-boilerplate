@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -21,6 +21,10 @@ import {
 } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
+import Button from 'components/Button';
+import LoginButton from 'components/LoginButton';
+import { Link } from 'react-router-dom';
+import auth from '../../utils/auth';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -46,6 +50,7 @@ export function HomePage({
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
+  let [showButton, setShowButton] = useState(false);
   useEffect(() => {
     // When initial state username is not null, submit the form to load repos
     if (username && username.trim().length > 0) onSubmitForm();
@@ -56,6 +61,18 @@ export function HomePage({
     error,
     repos,
   };
+
+  const logout = e => {
+    console.log('yeah');
+
+    e.preventDefault();
+    auth.clearAppStorage();
+    setShowButton(false);
+  };
+
+  if (auth.getToken()) {
+    showButton = true;
+  }
 
   return (
     <article>
@@ -95,6 +112,20 @@ export function HomePage({
             </label>
           </Form>
           <ReposList {...reposListProps} />
+          {showButton ? (
+            ''
+          ) : (
+            <Link to="/auth/login">
+              <LoginButton>Log in</LoginButton>
+            </Link>
+          )}
+          {showButton ? (
+            <Button primary onClick={logout} type="button">
+              Logout
+            </Button>
+          ) : (
+            ''
+          )}
         </Section>
       </div>
     </article>

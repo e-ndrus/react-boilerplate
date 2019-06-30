@@ -14,6 +14,10 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Post from 'containers/Post';
+import AuthPage from 'containers/AuthPage';
+import ConnectPage from 'containers/ConnectPage';
+import ProtectedRoute from 'containers/ProtectedRoute';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
@@ -40,7 +44,10 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
+        <Route path="/post" component={Post} />
+        <Route exact path="/connect/:provider" component={ConnectPage} />
+        <Route exact path="/auth/:authType/:id?" component={AuthPage} />
+        <ProtectedRoute exact path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />
